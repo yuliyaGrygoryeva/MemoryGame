@@ -12,8 +12,9 @@ struct ContentView: View {
         HStack {
             
             ForEach(0..<4) { index in
-                CardView(isFaceUp: false)
                 
+                CardView(isFaceUp: false)
+                // first day
             }
         }
         .padding()
