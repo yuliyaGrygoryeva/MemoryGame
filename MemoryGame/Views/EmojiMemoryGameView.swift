@@ -12,10 +12,12 @@ struct EmojiMemoryGameView: View {
     @StateObject var viewModel: EmojiMemoryGame
     
     var body: some View {
-        Grid(items: viewModel.cards) { card in
+        Grid(viewModel.cards) { card in
                 CardView(card: card).onTapGesture {
                     viewModel.choose(card: card)
                 }
+                .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+                .padding(5)
             }
         
         .padding()
@@ -33,14 +35,16 @@ struct CardView: View {
         }
     }
     
-    func body(for size: CGSize) -> some View {
+    private func body(for size: CGSize) -> some View {
         ZStack {
             if card.isFaceUp {
                 RoundedRectangle(cornerRadius: cornerRadius).fill(Color.white)
                 RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: edgeLineWidth)
                 Text(card.content)
             } else {
+                if !card.isMatched {
                 RoundedRectangle(cornerRadius: cornerRadius).fill()
+                }
             }
         }
         .font(Font.system(size: fontSize(for: size)))
@@ -48,11 +52,11 @@ struct CardView: View {
     }
     
     // MARK: - Drawing Constants
-    let cornerRadius: CGFloat = 10.0
-    let edgeLineWidth: CGFloat = 3
-    let fontScaleFactor: CGFloat = 0.75
+    private let cornerRadius: CGFloat = 10.0
+    private let edgeLineWidth: CGFloat = 3
+    private let fontScaleFactor: CGFloat = 0.75
     
-    func fontSize(for size: CGSize) -> CGFloat {
+    private func fontSize(for size: CGSize) -> CGFloat {
         min(size.width, size.height) * fontScaleFactor
     }
 }
