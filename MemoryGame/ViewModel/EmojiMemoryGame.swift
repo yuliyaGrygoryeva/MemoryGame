@@ -20,8 +20,7 @@ class EmojiMemoryGame: ObservableObject {
     
         return MemoryGame<String>(numbersOfPairsOfCards: emojis.count) { pairIndex in
         return emojis[pairIndex]
-            
-        }
+                  }
     }
     
     // var objectWillChange: ObservableObjectPublisher
@@ -35,6 +34,10 @@ class EmojiMemoryGame: ObservableObject {
     
     func choose(card: MemoryGame<String>.Card){
         model.choose(card: card)
+    }
+    
+    func resetGame() {
+        model = EmojiMemoryGame.createMemoryGame()
     }
     
 }
